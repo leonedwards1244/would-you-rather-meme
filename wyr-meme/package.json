@@ -1,0 +1,15 @@
+{
+  "name": "would-you-rather-meme-edition",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Real-time multiplayer memecoin 'Would You Rather' game",
+  "scripts": {
+    "install:all": "npm --prefix client install && npm --prefix server install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "build:demo": "npm --prefix client run build:single",
+    "start": "npm --prefix server start"
+  },
+  "type": "module"
+}

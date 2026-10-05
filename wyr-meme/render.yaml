@@ -1,0 +1,27 @@
+# Render Blueprint — real multiplayer deploy.
+# On render.com: New → Blueprint → pick this repo → Deploy. Everything below is pre-filled.
+# One web service runs the Socket.io game server AND serves the built website.
+services:
+  - type: web
+    name: would-you-rather-meme
+    runtime: node
+    plan: free                # $0; sleeps after 15 min with no visitors. Change to 0.5c-512mb (~$7/mo) for always-on.
+    region: frankfurt         # closest Render region to Ireland
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit # redeploy on every push to the default branch
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Real players only: the online count and votes are never simulated.
+      - key: SIM_BOTS
+        value: "false"
+      - key: ROUND_MS
+        value: "60000"
+      - key: VOTE_THRESHOLD
+        value: "1000"
+      # Optional extras — add them later under Environment in the Render dashboard:
+      #   COINGECKO_KEY                         real 7/30/90-day price history
+      #   NEWS_RSS_URLS                         real headlines (comma-separated RSS feeds)
+      #   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY  keep votes/posts across restarts

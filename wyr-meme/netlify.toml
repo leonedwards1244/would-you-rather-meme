@@ -1,0 +1,15 @@
+# Static deploy of the client in demo mode (no realtime server on Netlify).
+# Multiplayer needs the Node server in /server on a host that supports WebSockets.
+[build]
+  base = "client"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  VITE_DEMO = "1"
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

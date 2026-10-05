@@ -1,0 +1,3 @@
+# SPA fallback (the app uses hash routes, but keep deep links safe)
+/m/*  /index.html  200
+/*    /index.html  200
